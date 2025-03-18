@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:7028/api'; // Update if your API URL differs
+const API_BASE_URL = 'http://localhost:7028/api'; 
 
 export const testApiConnection = async () => {
   try {
       await axios.get(`${API_BASE_URL}/health-check`);
-      console.log('%c✅ API Connection Successful!', 'color: green; font-weight: bold;');
+      console.log(' API Connection Successful!', 'color: green; font-weight: bold;');
   } catch (error) {
-      console.error('%c❌ API Connection Failed!', 'color: red; font-weight: bold;', error.message);
+      console.error(' API Connection Failed!', 'color: red; font-weight: bold;', error.message);
   }
 };
 // Register a New User

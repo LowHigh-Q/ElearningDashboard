@@ -15,7 +15,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <h1>E-Learning Portal</h1>
+            <h1 >E-Learning Portal</h1>
             <div className="nav-links">
                 <Link to="/">Home</Link>
                 <Link to="/courses" onClick={handleCoursesClick}>Courses</Link>

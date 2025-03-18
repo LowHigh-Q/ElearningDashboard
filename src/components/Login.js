@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Axios imported here
+import axios from 'axios';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -22,6 +22,7 @@ const Login = () => {
 
             if (confirmAction) {
                 localStorage.removeItem('token');
+                localStorage.removeItem('userId'); // Clear userId as well
                 alert('You have been logged out. Please log in again.');
             } else {
                 alert('You are still logged in. Redirecting to Home...');
@@ -46,19 +47,25 @@ const Login = () => {
                 }
             });
 
-            const { token } = response.data;
+            const { token, userId } = response.data;
+
+            console.log('User ID from API:', userId); // ✅ Debug log
+
+            if (!userId) {
+                throw new Error('User ID not found in response.');
+            }
+
+            // Save token and userId in localStorage
+            localStorage.setItem('token', token);
+            localStorage.setItem('userId', userId);
 
             setSuccessMessage('Login Successful! Redirecting...');
-
-            // Save token in localStorage
-            localStorage.setItem('token', token);
 
             // Redirect to courses page after successful login
             setTimeout(() => {
                 navigate('/courses');
             }, 2000);
 
-            console.log('Logged in Successfully:', response.data);
         } catch (err) {
             const errorMessage = err.response?.data?.message || 'Login failed. Please try again.';
             setError(errorMessage);
